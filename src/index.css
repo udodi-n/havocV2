@@ -1,0 +1,14 @@
+@font-face {
+    font-family: Euro;
+    src: url('./assets/fonts/215000E.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: Nobulina;
+    src: url('./assets/fonts/NOBULINA.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: ReflowSans;
+    src: url('./assets/fonts/ReflowSans.ttf') format('truetype');
+}
