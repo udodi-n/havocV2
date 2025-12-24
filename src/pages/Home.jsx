@@ -49,7 +49,6 @@ function useKeyboardOffset() {
         const tsDate = new Date(timeStamp)
         const formattedDate = tsDate.toLocaleDateString();
         const formattedTime = tsDate.toLocaleTimeString();
-        const random = Math.floor(Math.random() * colors.length);
 
         if (!auth.currentUser.displayName) { 
             console.warn("username not loaded");

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 function DisplayPost({post}) {
+    const [color, setColor] = useState('')
         const colors = [
         "#42d824",
         "#1fa6d6",
@@ -12,7 +14,11 @@ function DisplayPost({post}) {
         "#3b5281",
         "#d476ff",
     ];
-    const random = Math.floor(Math.random() * colors.length);
+
+    useEffect(() => {
+        const random = Math.floor(Math.random() * colors.length);
+        setColor(colors[random]);
+    }, []);
 
     return (
         <div className="text-white gap-4 flex flex-col w-full px-10 h-[80vh] overflow-y-auto border-t-1 borer-white  py-4">
@@ -21,7 +27,7 @@ function DisplayPost({post}) {
                         <div className="flex flex-col gap-0 w-full">
                             <p 
                             style={{fontSize: "clamp(16px, 1vw, 19px)",
-                            color: `${colors[random]}`,
+                            color: `${color}`,
                             }}>
                                 {`<@${p.username}>`}</p>
                             <p style={{fontSize: "calc(12px + 0.3vw)"}}>{p.date} {p.time}</p>
