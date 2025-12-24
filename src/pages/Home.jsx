@@ -42,7 +42,7 @@ function useKeyboardOffset() {
     const [username, setUsername] = useState('')
     const navigate = useNavigate();
     const colors = [
-    "#fff",
+    "#42d824",
     "#1fa6d6",
     "#d6b21f",
     "#d61f95",
@@ -57,21 +57,12 @@ function useKeyboardOffset() {
 
 
     useEffect(() => {
-        async function unsubscribe() {
+        function unsubscribe() {
             const random = Math.floor(Math.random() * colors.length);
             localStorage.setItem("color", colors[random])
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    const uid = user.uid
-                    const snap = await getDoc(doc(db, "users", uid));
-                    setUsername(snap.data().username);
-                } else {
-                    navigate('/')
-                }
-            })
         }
 
-        return () => unsubscribe()
+        return unsubscribe
     }, [])
 
     function handleSubmit() {
@@ -82,9 +73,13 @@ function useKeyboardOffset() {
         const formattedTime = tsDate.toLocaleTimeString();
         const random = Math.floor(Math.random() * colors.length);
 
+        if (!auth.currentUser.displayName) { 
+            console.warn("username not loaded");
+            return;
+        } else {
         addDoc(collection(db, 'messages'), {
             text: value,
-            username: username,
+            username: auth.currentUser.displayName,
             createdAt: Date.now(),
             date: formattedDate,
             time: formattedTime,
@@ -93,6 +88,7 @@ function useKeyboardOffset() {
         }) .catch((error) => {
             console.error("Error sending message: ", error);
         });
+    }
     }
 
     function checkLength(e, setValue, setPostLength, setDisable) {

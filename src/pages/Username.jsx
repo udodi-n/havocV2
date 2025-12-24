@@ -3,7 +3,7 @@ import Button from '../components/Button'
 import { useState, useEffect } from 'react'
 import { db, auth } from '../firebase'
 import OnAuth from '../components/OnAuth.jsx'
-import { signInAnonymously, getAuth } from 'firebase/auth'
+import { signInAnonymously, getAuth, updateProfile } from 'firebase/auth'
 import { query, doc, where, collection, getDocs, setDoc} from 'firebase/firestore'
 
 function Username() {
@@ -17,6 +17,11 @@ function Username() {
         const useSplit = value.split('@')[1];
         console.log(useSplit)
         const userCred = await signInAnonymously(auth);
+        const user = userCred.user;
+        
+        await updateProfile(user, {
+            displayName: useSplit,
+        });
         const uid = userCred.user.uid;
         await setDoc(doc(db, "users", uid), {
             username: useSplit,
