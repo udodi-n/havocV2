@@ -41,29 +41,7 @@ function useKeyboardOffset() {
     const [posts, setPosts] = useState([]);
     const [username, setUsername] = useState('')
     const navigate = useNavigate();
-    const colors = [
-    "#42d824",
-    "#1fa6d6",
-    "#d6b21f",
-    "#d61f95",
-    "#d61f1f",
-    "#27d61f",
-    "#82b97f",
-    "#a250ea",
-    "#6eb223",
-    "#3b5281",
-    "#d476ff",
-];
 
-
-    useEffect(() => {
-        function unsubscribe() {
-            const random = Math.floor(Math.random() * colors.length);
-            localStorage.setItem("color", colors[random])
-        }
-
-        return unsubscribe
-    }, [])
 
     function handleSubmit() {
         setValue('');
