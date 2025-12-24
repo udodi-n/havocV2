@@ -2,30 +2,26 @@ import background from '../assets/background.png'
 import Button from '../components/Button'
 import { useState, useEffect } from 'react'
 import { db, auth } from '../firebase'
-import { signInAnonymously } from 'firebase/auth'
+import OnAuth from '../components/OnAuth.jsx'
+import { signInAnonymously, getAuth } from 'firebase/auth'
 import { query, doc, where, collection, getDocs, setDoc} from 'firebase/firestore'
 
 function Username() {
     const [message, setMessage] = useState("");
     const [color, setColor] = useState(false);
     const [value, setValue] = useState('')
+    const auth = getAuth();
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
         const useSplit = value.split('@')[1];
         console.log(useSplit)
-        setDoc(doc(db, "usernames", useSplit), {
-            username: useSplit
-        })
-
-        signInAnonymously(auth) 
-        .then(() => {
-            console.log("Signed in anonymously")
-        })
-        .catch((error) => {
-            console.error(error)
-            setColor(false)
-            setMessage(error.message)
+        const userCred = await signInAnonymously(auth);
+        const uid = userCred.user.uid;
+        await setDoc(doc(db, "users", uid), {
+            username: useSplit,
+            createdAt: Date.now(),
+            uid: uid,
         })
     }
 
@@ -34,7 +30,7 @@ function Username() {
 
         setValue("@"+filter)
 
-        const q = query(collection(db, "usernames"),
+        const q = query(collection(db, "users"),
         where("username", "==", filter)
         )
 
@@ -69,10 +65,11 @@ function Username() {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}>
+                <OnAuth nav='/home'/>
                 <p className="text-4xl">Pick a username</p>
                 <form
                 className="flex flex-col items-center gap-10"
-                style={{width: "calc(20rem + 3vw"}}
+                style={{width: "clamp(10rem, 15rem, 20rem)"}}
                 onSubmit={handleSubmit}
                 >
                     <div className="w-full gap-2 flex flex-col">
