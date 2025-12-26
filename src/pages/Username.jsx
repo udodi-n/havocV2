@@ -22,6 +22,7 @@ function Username() {
         await updateProfile(user, {
             displayName: useSplit,
         });
+
         const uid = userCred.user.uid;
         await setDoc(doc(db, "users", uid), {
             username: useSplit,
@@ -64,29 +65,43 @@ function Username() {
     }
 
     return( 
-        <div className="w-full h-screen flex flex-col text-white font-[Google_Sans_Flex] justify-center items-center gap-8"
+        <div className="w-full h-screen flex flex-col text-white font-[PT_Mono] justify-center items-center"
         style={{
-                backgroundImage: `url(${background})`,
+                background: `#1c1c1a`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
             }}>
                 <OnAuth nav='/home'/>
-                <p className="text-4xl">Pick a username</p>
-                <form
-                className="flex flex-col items-center gap-10"
-                style={{width: "clamp(10rem, 15rem, 20rem)"}}
-                onSubmit={handleSubmit}
-                >
-                    <div className="w-full gap-2 flex flex-col">
-                        <input
-                        placeholder="@iloveboobs"
-                        onChange={(e) => checkUsername(e.target.value)}
-                        value={value}
-                        className="w-full bg-white text-black focus:outline-none border-3 border-[#ee2d2e] py-2 px-3 "/>
-                        <p className={`text-sm ${color ? 'text-green-500' : 'text-red-500'}`}>{message}</p>
+                <div className="bg-[#fff]  text-black flex flex-col justify-start items-center p-6"
+                style={{width: "calc(20rem + 0.5vw)",
+                    height: "calc(",
+                    boxShadow: "5px 5px 0px #000"
+                }}>
+                    <div className="flex flex-col items-center">
+                        <h1 className="font-[Nobulina]"
+            style={{fontSize: "calc(20px + 1vw)"}}
+            >HAVOC</h1>
                     </div>
-                    <Button text="Sign up" cursor={color} nav="/home"/>
-                </form>
+                    <form
+                    className="flex flex-col items-center w-full gap-6 "
+                    onSubmit={handleSubmit}
+                    >
+                    <p className="text-xl" style={{wordSpacing: "0px"}}>Create account</p>
+                        <div className="w-full flex flex-col">
+                            <label className="text-[15px]" for="username"> 
+                            *Username </label>
+                            <input
+                            placeholder="@higger_nater"
+                            onChange={(e) => checkUsername(e.target.value)}
+                            value={value}
+                            name="username"
+                            className="w-full flex flex-col bg-white text-black focus:outline-none border-2 border-[#bdbdbdff] py-2 px-3 "/>
+                            <p className={`text-sm ${color ? 'text-green-500' : 'text-red-500'}`}>{message}</p>
+                        </div>
+                        <Button text="Sign up" cursor={color} nav="/home"/>
+                        <p className="text-[8px] text-center">By signing up you agree to my not-so-shady <a className="text-[#ee2d2e] underline" href="/terms">Terms & Conditions</a></p>
+                    </form>
+                </div>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import send from '../assets/send.png'
 import { db, auth } from '../firebase'
-import { collection, addDoc, getDoc, doc, onSnapshot } from 'firebase/firestore'
-import { onAuthStateChanged } from "firebase/auth";
+import { collection, addDoc, onSnapshot } from 'firebase/firestore'
+import OnAuth from '../components/OnAuth'
 import DisplayPost from '../components/DisplayPost'
 import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
@@ -41,6 +41,7 @@ function useKeyboardOffset() {
     const [posts, setPosts] = useState([]);
     const [username, setUsername] = useState('')
     const navigate = useNavigate();
+    const color = localStorage.getItem('color')
 
 
     function handleSubmit() {
@@ -80,20 +81,11 @@ function useKeyboardOffset() {
         } 
     } 
 
-    useEffect(() => {
-        const updateHome = onSnapshot(collection(db, "messages"), (snapshot) => {
-        const postArray = snapshot.docs
-            .map((doc) => ({ id: doc.id, ...doc.data() }))
-            .sort((a, b) => b.createdAt - a.createdAt);
-            setPosts(postArray);
-        }); 
 
-        return () => updateHome();
-    }, []);
 
     return (
-        <div className="w-full min-h-screen flex flex-col justify-start text-white font-[Google_Sans_Flex] bg-[#0c0c0c]">
-
+        <div className="w-full min-h-screen flex flex-col justify-start text-white font-[PT_Mono] bg-[#0c0c0c]">
+            <OnAuth nextNav = '/' />
         <div className="flex justify-center w-full"
         style={{height: "6rem"}}> 
             <Header />
@@ -124,7 +116,19 @@ function useKeyboardOffset() {
                         width: "clamp(18rem, 20rem, 25rem)"
                     }}
                 />
-                <button className={`aspect-square w-15 flex py-2 bg-[#ee2d2e] text-white flex justify-center items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><img src={send} alt="send" className="w-6 h-auto invert" /></button>
+                <button className={`border-1 border-[white] aspect-square w-15 flex py-2 text-white flex justify-center items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><div
+                className="w-6 h-6"
+                style={{
+                    background: `${color}`,
+                    WebkitMaskImage: `url(${send})`,
+                    maskImage: `url(${send})`,
+                    WebkitMaskRepeat: "no-repeat",
+                    WebkitMaskSize: "contain",
+                    maskRepeat: "no-repeat",
+                    maskSize: "contain",
+                }}
+        ></div></button>
+                
             </div>
             </form>
         </div>

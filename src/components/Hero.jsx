@@ -20,7 +20,8 @@ function Hero() {
             }}><span className="font-[Euro] text-[#ee2d2e]"
             style={{fontSize: "calc(80px + 1vw)"}}>MORALS</span> <br /> <span className="relative z-2">ARE ONLY FOR <br />PEOPLE WHO <br /> GET </span><span className="bg-[#ee2d2e] relative z-1 transform rotate-20">CAUGHT</span></h1>
 
-            <Button nav="/sign-up" text="HOP IN"/>
+            <div style={{width: "calc(13rem + 0.5vw)"}}>
+                <Button nav="/sign-up" text="HOP IN"/></div>
         </div>
     );
 }

@@ -6,7 +6,7 @@ import background from '../assets/background.png'
 function Landing() {
     return (
     <div
-        className="relative w-full min-h-screen font-[Google_Sans_Flex] text-white flex flex-col items-center justify-between"
+        className="relative w-full min-h-screen font-[PT_Mono] text-white flex flex-col items-center justify-between"
         style={{
             backgroundImage: `url(${background})`,
             backgroundSize: "cover",

@@ -1,8 +1,10 @@
 function Footer() {
     return(
-        <footer className="w-full text-center text-white py-2">
-            © Copyright 2025 Ryoichi. <br /> Alle Rechte vorbehalten.
-        </footer>  
+        <footer className="w-full flex flex-col text-center text-white py-2"
+        style={{fontSize: "calc(8px + 0.5vw)"}}>
+            <a href="/terms" className="underline">Terms & Conditions</a>
+            <p>© Copyright 2025 <a href="https://x.com/ryoichi_xl" className="underline text-[#ee2d2e]" target="_blank">Ryoichi.</a> <br /> Alle Rechte vorbehalten.</p>
+        </footer> 
     )
 }
 
