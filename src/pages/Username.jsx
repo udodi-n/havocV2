@@ -75,7 +75,7 @@ function Username() {
                 <div className="bg-[#fff]  text-black flex flex-col justify-start items-center p-6"
                 style={{width: "calc(20rem + 0.5vw)",
                     height: "calc(",
-                    boxShadow: "5px 5px 0px #000"
+                    boxShadow: "5px 5px 0px #000000ff"
                 }}>
                     <div className="flex flex-col items-center">
                         <h1 className="font-[Nobulina]"
@@ -88,7 +88,7 @@ function Username() {
                     >
                     <p className="text-xl" style={{wordSpacing: "0px"}}>Create account</p>
                         <div className="w-full flex flex-col">
-                            <label className="text-[15px]" for="username"> 
+                            <label className="text-[15px]" htmlFor="username"> 
                             *Username </label>
                             <input
                             placeholder="@higger_nater"

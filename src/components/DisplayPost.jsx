@@ -18,7 +18,7 @@ function DisplayPost({post}) {
         "#d476ff",
         "#1fbe5cff",
         "#d1ff02ff",
-        "#1302ffff",
+        "#18ff71ff",
         "#ff7c02ff",
     ];
     const [posts, setPosts] = useState([])
@@ -27,7 +27,6 @@ function DisplayPost({post}) {
     useEffect(() => {
         const random = Math.floor(Math.random() * colors.length);
         setColor(colors[random]);
-        localStorage.setItem('color', colors[random])
     }, []);
 
         useEffect(() => {
@@ -47,8 +46,14 @@ function DisplayPost({post}) {
 
 
     return (
-        <div className="text-white gap-4 flex flex-col w-full px-10 h-[80vh] overflow-y-auto border-t-1 borer-white  py-4">
-            {posts.map((p) => (
+        <div className="text-white gap-4 flex flex-col w-full px-6  h-[80vh] overflow-y-auto border-t-1 borer-white  py-4">
+            {posts.map((p) => {
+                    const t = new Date(p.createdAt);
+                    const time = t.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+                return (
                     <div key={p.id} className="flex flex-col gap-1 w-full">
                         <div className="flex flex-col gap-0 w-full">
                             <div className="w-full flex">
@@ -59,11 +64,12 @@ function DisplayPost({post}) {
                                     {`<@${p.username}>`}</p>
                                     {/* <img src={badge} alt="" /> */}
                             </div>
-                            <p style={{fontSize: "calc(12px + 0.3vw)"}}>{p.date} {p.time}</p>
+                            <p style={{fontSize: "calc(12px + 0.3vw)"}}>{p.date} {time}</p>
                         </div>
                         <div>{p.text}</div>
                     </div>
-            ))}
+            );
+            })}
         </div>
     );
 }

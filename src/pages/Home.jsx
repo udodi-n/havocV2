@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import send from '../assets/send.png'
 import { db, auth } from '../firebase'
-import { collection, addDoc, onSnapshot } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
+import menu from '../assets/menu.png'
+import gif from '../assets/gif.png'
 import OnAuth from '../components/OnAuth'
 import DisplayPost from '../components/DisplayPost'
-import { useNavigate } from 'react-router-dom'
+import Gif from '../components/Gif'
 import Header from '../components/Header'
 
 function useKeyboardOffset() {
@@ -38,17 +40,13 @@ function useKeyboardOffset() {
     const [value, setValue] = useState("");
     const [postLength, setPostLength] = useState(0);
     const [disable, setDisable] = useState(true);
-    const [posts, setPosts] = useState([]);
-    const [username, setUsername] = useState('')
-    const navigate = useNavigate();
-    const color = localStorage.getItem('color')
-
+    const [display, setDisplay] = useState(false)
 
     function handleSubmit() {
         setValue('');
         const timeStamp = new Date()
         const tsDate = new Date(timeStamp)
-        const formattedDate = tsDate.toLocaleDateString();
+        const formattedDate = tsDate.toLocaleDateString('en-US');
         const formattedTime = tsDate.toLocaleTimeString();
 
         if (!auth.currentUser.displayName) { 
@@ -74,7 +72,7 @@ function useKeyboardOffset() {
         setValue(inputValue);
         const length = inputValue.length;
         setPostLength(length);
-        if (length > 0 && length <= 280) {
+        if (length > 0 && length <= 400) {
             setDisable(false);
         } else {
             setDisable(true);
@@ -86,14 +84,15 @@ function useKeyboardOffset() {
     return (
         <div className="w-full min-h-screen flex flex-col justify-start text-white font-[PT_Mono] bg-[#0c0c0c]">
             <OnAuth nextNav = '/' />
-        <div className="flex justify-center w-full"
-        style={{height: "6rem"}}> 
-            <Header />
+        <div className=" px-6 flex justify-between items-center w-full bg-[]"
+        style={{height: "5rem"}}> 
+                <Header />
+            {/* <div className="flex h-full items-center"><img src={menu} className="w-7 h-auto invert"/></div> */}
         </div>
         <div className="">
-            <DisplayPost post={posts} />
+            <DisplayPost />
         </div>
-
+        <Gif display={display} setDisplay={setDisplay}/>
         <form
         onSubmit={(e) => { e.preventDefault(); handleSubmit()}}
             className="fixed w-full flex flex-col items-center left-0 bottom-0 p-3 mb-2 h-18" 
@@ -104,22 +103,22 @@ function useKeyboardOffset() {
             >
             <div className="flex justify-center gap-2 h-full"
             style={{
-                width: "calc(90% - 1.5rem)",
+                width: "calc(99% - 1.5rem)",
                 }}>
 
                 <textarea
                     placeholder="Uhh type..."
-                    className=" bg-white text-black/80 h-full focus:outline-none resize-none p-3"
+                    className="rounded-[24px] bg-white text-black/80 h-full focus:outline-none resize-none p-3"
                     onChange={(e) => checkLength(e, setValue, setPostLength, setDisable)}
                     value={value}
                     style={{
-                        width: "clamp(18rem, 20rem, 25rem)"
+                        width: "clamp(18rem, 20rem, 23rem)"
                     }}
                 />
-                <button className={`border-1 border-[white] aspect-square w-15 flex py-2 text-white flex justify-center items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><div
+                <button className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#ee2d2e] items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><div
                 className="w-6 h-6"
                 style={{
-                    background: `${color}`,
+                    background: `#fff`,
                     WebkitMaskImage: `url(${send})`,
                     maskImage: `url(${send})`,
                     WebkitMaskRepeat: "no-repeat",
@@ -127,7 +126,23 @@ function useKeyboardOffset() {
                     maskRepeat: "no-repeat",
                     maskSize: "contain",
                 }}
-        ></div></button>
+        ></div>
+        </button>
+                <div 
+                onClick={() => setDisplay(true)}
+                className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#fff] items-center `}><div
+                className="w-6 h-6"
+                style={{
+                    background: `#000`,
+                    WebkitMaskImage: `url(${gif})`,
+                    maskImage: `url(${gif})`,
+                    WebkitMaskRepeat: "no-repeat",
+                    WebkitMaskSize: "contain",
+                    maskRepeat: "no-repeat",
+                    maskSize: "contain",
+                }}
+        ></div>
+        </div>
                 
             </div>
             </form>
