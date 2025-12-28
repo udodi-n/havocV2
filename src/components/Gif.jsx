@@ -15,7 +15,6 @@ function Gif({display, setDisplay}) {
             const res = await fetch(`/api/gifs?q=${value}&uid=${uid}`);
             const data = await res.json();
             setGif(data.urls)
-            console.log(data.urls)
         }
     }
 
@@ -53,13 +52,13 @@ function Gif({display, setDisplay}) {
                 <img onClick={() => setDisplay(false)} src={cancel} className="w-5 h-auto" alt="" /> 
         </div>
         <div className="w-full flex flex-1 flex-wrap gap-2 h-[80vh] overflow-y-auto">
-        {gif.map((url, i) => (
+        {gif.map((giphy, i) => (
             <div
             key={i}
             className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-square overflow-hidden rounded"
             >
             <img
-                src={url}
+                src={giphy.url}
                 alt=""
                 className="w-full h-full object-cover"
             />
