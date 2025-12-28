@@ -7,6 +7,7 @@ import gif from '../assets/gif.png'
 import OnAuth from '../components/OnAuth'
 import DisplayPost from '../components/DisplayPost'
 import Gif from '../components/Gif'
+import cancel from '../assets/cancel.png'
 import Header from '../components/Header'
 
 function useKeyboardOffset() {
@@ -41,9 +42,11 @@ function useKeyboardOffset() {
     const [postLength, setPostLength] = useState(0);
     const [disable, setDisable] = useState(true);
     const [display, setDisplay] = useState(false)
+    const [gifurl, setGifurl] = useState(null)
 
     function handleSubmit() {
         setValue('');
+        setGifurl(null);
         const timeStamp = new Date()
         const tsDate = new Date(timeStamp)
         const formattedDate = tsDate.toLocaleDateString('en-US');
@@ -59,6 +62,7 @@ function useKeyboardOffset() {
             createdAt: Date.now(),
             date: formattedDate,
             time: formattedTime,
+            gif: gifurl,
         }).then(() => {
             console.log("sent successfully")
         }) .catch((error) => {
@@ -67,17 +71,30 @@ function useKeyboardOffset() {
     }
     }
 
+    function setGif(url) {
+        setGifurl(url.url)
+        console.log(url.url)
+    }
+
     function checkLength(e, setValue, setPostLength, setDisable) {
         const inputValue = e.target.value;
         setValue(inputValue);
         const length = inputValue.length;
         setPostLength(length);
-        if (length > 0 && length <= 400) {
+        if ((length > 0 && length <= 400) || gifurl !== null) {
             setDisable(false);
         } else {
             setDisable(true);
         } 
-    } 
+    }
+
+    function enableGif() {
+        if (gifurl !== null) {
+            setDisable(false);
+        } else {
+            setDisable(true)
+        }
+    }
 
 
 
@@ -92,29 +109,54 @@ function useKeyboardOffset() {
         <div className="">
             <DisplayPost />
         </div>
-        <Gif display={display} setDisplay={setDisplay}/>
+        <Gif display={display} url={gifurl} setDisplay={setDisplay} action={setGif}/>
         <form
         onSubmit={(e) => { e.preventDefault(); handleSubmit()}}
-            className="fixed w-full flex flex-col items-center left-0 bottom-0 p-3 mb-2 h-18" 
+            className="fixed w-full flex flex-col items-center left-0 bottom-0 p-3 mb-2 h-fit" 
             style={{
                 transform: `translateY(-${keyboardOffset}px)`,
                 transition: "transform 0.25s ease",
             }}
             >
-            <div className="flex justify-center gap-2 h-full"
+                <div className={`${gifurl? '' : 'hidden'} w-full flex justify-start mb-3 ml-7`}>
+                    <div className="aspect-square w-25 relative bg-white rounded-lg">
+                        <img src={cancel} onClick={() => setGifurl(null)} className="absolute w-4 z-100 h-auto invert top-2 right-2" alt="" />
+                        <img onLoad={() => enableGif()} src={gifurl} className="opacity-70 w-full h-full object-cover" alt="" />
+                    </div>
+                </div>
+            <div className="flex justify-center gap-2 h-12"
             style={{
                 width: "calc(99% - 1.5rem)",
                 }}>
 
-                <textarea
-                    placeholder="Uhh type..."
-                    className="rounded-[24px] bg-white text-black/80 h-full focus:outline-none resize-none p-3"
-                    onChange={(e) => checkLength(e, setValue, setPostLength, setDisable)}
-                    value={value}
+                    <div className="w-full flex bg-white rounded-full overflow-hidden ">
+                        <div 
+                    onClick={() => setDisplay(true)}
+                    className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#fff] items-center `}> <div
+                    className="w-6 h-6"
                     style={{
-                        width: "clamp(18rem, 20rem, 23rem)"
+                        background: `#000`,
+                        WebkitMaskImage: `url(${gif})`,
+                        maskImage: `url(${gif})`,
+                        WebkitMaskRepeat: "no-repeat",
+                        WebkitMaskSize: "contain",
+                        maskRepeat: "no-repeat",
+                        maskSize: "contain",
                     }}
-                />
+            >
+
+            </div>
+            </div>
+                    <textarea
+                        placeholder="Uhh type..."
+                        className=" bg-white text-black/80 h-full focus:outline-none resize-none p-3"
+                        onChange={(e) => checkLength(e, setValue, setPostLength, setDisable)}
+                        value={value}
+                        style={{
+                            width: "clamp(18rem, 20rem, 23rem)"
+                        }}
+                    />
+                </div>
                 <button className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#ee2d2e] items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><div
                 className="w-6 h-6"
                 style={{
@@ -128,21 +170,6 @@ function useKeyboardOffset() {
                 }}
         ></div>
         </button>
-                <div 
-                onClick={() => setDisplay(true)}
-                className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#fff] items-center `}><div
-                className="w-6 h-6"
-                style={{
-                    background: `#000`,
-                    WebkitMaskImage: `url(${gif})`,
-                    maskImage: `url(${gif})`,
-                    WebkitMaskRepeat: "no-repeat",
-                    WebkitMaskSize: "contain",
-                    maskRepeat: "no-repeat",
-                    maskSize: "contain",
-                }}
-        ></div>
-        </div>
                 
             </div>
             </form>

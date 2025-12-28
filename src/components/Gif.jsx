@@ -3,19 +3,26 @@ import cancel from '../assets/cancel.png'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 
-function Gif({display, setDisplay}) {
+function Gif({display, setDisplay, url, action}) {
     const [value, setValue] = useState('')
     const [uid, setUid] = useState('')
-    const [gif, setGif] = useState([])
+    const [gif, setGif] = useState([]);
+    const [gifurl, setGifurl] = useState(url)
 
-        
-    
     async function searchGif() {
-        if(uid) {
+        if (uid) {
             const res = await fetch(`/api/gifs?q=${value}&uid=${uid}`);
             const data = await res.json();
-            setGif(data.urls)
+            setGif(data.urls);
         }
+    } 
+
+    function handleGifClick(target) {
+        setGifurl(target)
+        
+        action({
+            url: target
+        })
     }
 
     useEffect(() => {
@@ -24,6 +31,7 @@ function Gif({display, setDisplay}) {
             setUid(uid)
         })
     }, [])
+
 
     useEffect(() => {
         if (!uid || !value) return;
@@ -59,6 +67,7 @@ function Gif({display, setDisplay}) {
             >
             <img
                 src={giphy.url}
+                onClick={() => {handleGifClick(giphy.url); setDisplay(false)}}
                 alt=""
                 className="w-full h-full object-cover"
             />

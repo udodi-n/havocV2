@@ -1,4 +1,4 @@
-    export default async function handler(req, res) {
+export default async function handler(req, res) {
     const { q, uid } = req.query;
     const API_KEY = process.env.KEY;
 
@@ -9,4 +9,4 @@
 
     const urls = data.data.data.map((gif) => gif.file.sm.gif);
     res.status(200).json({ urls });
-    }
+}
