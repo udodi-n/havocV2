@@ -15,7 +15,7 @@ function Gif({display, setDisplay}) {
             const res = await fetch(`/api/gifs?q=${value}&uid=${uid}`);
             const data = await res.json();
             setGif(data.urls)
-            console.log(urls)
+            console.log(data.urls)
         }
     }
 
@@ -37,7 +37,7 @@ function Gif({display, setDisplay}) {
         }, [value, uid]);
 
         if (!display) return null
-        
+
     return(
         <div className={`flex flex-col items-center absolute z-100 h-screen bg-white w-full p-3`}>
         <div className="h-10 w-full flex justify-around items-center ">
