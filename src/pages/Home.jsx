@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import send from '../assets/send.png'
 import { db, auth } from '../firebase'
 import { collection, addDoc } from 'firebase/firestore'
-import menu from '../assets/menu.png'
+import setting from '../assets/setting.png'
 import gif from '../assets/gif.png'
 import OnAuth from '../components/OnAuth'
 import DisplayPost from '../components/DisplayPost'
@@ -104,7 +104,7 @@ function useKeyboardOffset() {
         <div className=" px-6 flex justify-between items-center w-full bg-[]"
         style={{height: "5rem"}}> 
                 <Header />
-            {/* <div className="flex h-full items-center"><img src={menu} className="w-7 h-auto invert"/></div> */}
+            <img src={setting} alt="" className="w-4 h-auto invert"/>
         </div>
         <div className="">
             <DisplayPost />
@@ -129,7 +129,10 @@ function useKeyboardOffset() {
                 width: "calc(99% - 1.5rem)",
                 }}>
 
-                    <div className="w-full flex bg-white rounded-full overflow-hidden ">
+                    <div className="flex bg-white lg:w-3/5 md:w-3/5 rounded-full overflow-hidden "
+                    style={{
+                        
+                    }}>
                         <div 
                     onClick={() => setDisplay(true)}
                     className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#fff] items-center `}> <div
@@ -149,12 +152,10 @@ function useKeyboardOffset() {
             </div>
                     <textarea
                         placeholder="Uhh type..."
-                        className=" bg-white text-black/80 h-full focus:outline-none resize-none p-3"
+                        className=" bg-white flex flex-1 text-black/80 h-full focus:outline-none resize-none p-3"
                         onChange={(e) => checkLength(e, setValue, setPostLength, setDisable)}
                         value={value}
-                        style={{
-                            width: "clamp(18rem, 20rem, 23rem)"
-                        }}
+                        
                     />
                 </div>
                 <button className={`aspect-square h-full rounded-full flex py-2 text-white flex justify-center bg-[#ee2d2e] items-center ${disable ? 'opacity-50 cursor-not-allowed' : ''}`} disabled={disable}><div

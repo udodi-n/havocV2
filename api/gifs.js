@@ -1,9 +1,9 @@
 export default async function handler(req, res) {
-    const { q, uid } = req.query;
+    const { p, q, uid } = req.query;
     const API_KEY = process.env.KEY;
 
     const response = await fetch(
-        `https://api.klipy.com/api/v1/${API_KEY}/gifs/search?page=1&per_page=50&q=${q}&customer_id=${uid}`
+        `https://api.klipy.com/api/v1/${API_KEY}/gifs/search?page=${p}&per_page=50&q=${q}&customer_id=${uid}`
     );
     const data = await response.json();
 
