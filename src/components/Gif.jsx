@@ -23,7 +23,6 @@ function Gif({display, setDisplay, url, action}) {
             const urls = data.flatMap((r) =>
                 r.data.data.map((g) => g.file.sm.gif.url)
             );
-            console.log(urls)
             setGif(urls);
 
     }
