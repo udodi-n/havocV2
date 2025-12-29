@@ -20,9 +20,9 @@ function Gif({display, setDisplay, url, action}) {
             }
             const data = await Promise.all(requests)
 
-            // const urls = data.flatMap((r) =>
-            //     r.data.data.map((g) => g.file.sm.gif.url)
-            // );
+            const urls = data.flatMap((r) =>
+                r.urls.map((g) => g.url)
+            );
             console.log(data)
             setGif(urls);
 
