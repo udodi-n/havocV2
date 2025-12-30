@@ -1,7 +1,8 @@
 import background from '../assets/background.png'
 import Button from '../components/Button'
-import { useState, useEffect } from 'react'
-import { db, auth } from '../firebase'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { db } from '../firebase'
 import OnAuth from '../components/OnAuth.jsx'
 import { signInAnonymously, getAuth, updateProfile } from 'firebase/auth'
 import { query, doc, where, collection, getDocs, setDoc} from 'firebase/firestore'
@@ -11,6 +12,7 @@ function Username() {
     const [color, setColor] = useState(false);
     const [value, setValue] = useState('')
     const auth = getAuth();
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -29,6 +31,10 @@ function Username() {
             createdAt: Date.now(),
             uid: uid,
         })
+
+        if(uid) {
+            navigate('/home')
+        }
     }
 
     async function checkUsername(selected) {
@@ -98,7 +104,7 @@ function Username() {
                             className="w-full flex flex-col bg-white text-black focus:outline-none border-2 border-[#bdbdbdff] py-2 px-3 "/>
                             <p className={`text-sm ${color ? 'text-green-500' : 'text-red-500'}`}>{message}</p>
                         </div>
-                        <Button text="Sign up" cursor={color} nav="/home"/>
+                        <Button text="Sign up" cursor={color}/>
                         <p className="text-[8px] text-center">By signing up you agree to my not-so-shady <a className="text-[#ee2d2e] underline" href="/terms">Terms & Conditions</a></p>
                     </form>
                 </div>

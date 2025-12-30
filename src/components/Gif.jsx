@@ -42,27 +42,22 @@ function Gif({display, setDisplay, url, action}) {
             setUid(uid)
         })
     }, [])
-
-
-    useEffect(() => {
-        if (!uid || !value) return;
-
-        const timeout = setTimeout(() => {
-            searchGif();
-        }, 400);
-
-        return () => clearTimeout(timeout);
-        }, [value, uid]);
-
-        if (!display) return null
+    
+    if (!display) return null
 
     return(
         <div className={`flex flex-col items-center absolute z-100 h-screen bg-white w-full p-3`}>
         <div className="h-10 w-full flex justify-center gap-6 items-center ">
-            <textarea
+            <input
+                    type="search"
+                    onKeyDown={(e) => {
+                        if(e.key === "Enter") {
+                            searchGif();
+                        }
+                    }}
                     placeholder="GIF"
                     onChange={(e) => setValue(e.target.value)}
-                    className=" border-b-1 lg:w-2/5 md:w-2/5 border-black text-black/80 h-full overflow-x-auto focus:outline-none whitespace-nowrap p-3"
+                    className=" border-1 rounded-full lg:w-2/5 md:w-2/5 border-black text-black/80 h-full overflow-x-auto focus:outline-none whitespace-nowrap p-3"
                     value={value}
                     style={{
                         
