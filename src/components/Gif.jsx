@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import cancel from '../assets/cancel.png'
+import redir from '../assets/redir.png'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 
@@ -9,13 +9,13 @@ function Gif({display, setDisplay, url, action}) {
     const [gif, setGif] = useState([]);
     const [gifurl, setGifurl] = useState(url)
 
-    async function searchGif() {
+    async function searchGif(query) {
         if (!uid) return
 
             const requests = []
 
             for(let i=0; i < 10; i++) {
-                requests.push(fetch(`/api/gifs?p=${i}&q=${value}&uid=${uid}`).then(res => res.json())
+                requests.push(fetch(`/api/gifs?p=${i}&q=${query}&uid=${uid}`).then(res => res.json())
             );
             }
             const data = await Promise.all(requests)
@@ -52,7 +52,9 @@ function Gif({display, setDisplay, url, action}) {
                     type="search"
                     onKeyDown={(e) => {
                         if(e.key === "Enter") {
-                            searchGif();
+                            const selected = e.target.value;
+                            searchGif(selected)
+                            console.log(selected)
                         }
                     }}
                     placeholder="GIF"
@@ -63,13 +65,14 @@ function Gif({display, setDisplay, url, action}) {
                         
                     }}
                 />
-                <img onClick={() => setDisplay(false)} src={cancel} className="w-5 h-auto" alt="" /> 
+        
+                    <img onClick={() => setDisplay(false)} src={redir} className="w-5 h-auto" alt="" />
         </div>
-        <div className="w-full flex flex-1 mt-10 flex-wrap gap-2 h-[80vh] overflow-y-auto">
+        <div className="w-full flex flex-1 mt-5 flex-wrap h-[80vh] overflow-y-auto">
         {gif.map((giphy) => (
             <div
             key={giphy}
-            className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-square overflow-hidden rounded"
+            className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-1/2 overflow-hidden"
             >
             <img
                 src={giphy}
