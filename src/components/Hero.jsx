@@ -1,7 +1,22 @@
 import luigi from '../assets/luigi.jpeg'
 import Button from './Button'
+import { useState, useEffect } from 'react'
+import { auth } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 function Hero() {
+    const [nav, setNav] = useState('/sign-up')
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setNav('/home')
+            } else {
+                setNav('/sign-up')
+            }
+        })
+    }, [])
+
     return (
         <div className="font-[Google_Sans_Flex] h-screen flex flex-col justify-center items-center text-center gap-16">
             <div className="transform rotate-5 bg-white flex gap-2 flex-col text-black justify-center p-3 "
@@ -22,7 +37,7 @@ function Hero() {
             style={{fontSize: "calc(75px + 0.5vw)"}}>MORALS</span> <br /> <span className="relative z-2">ARE ONLY FOR <br />PEOPLE WHO <br /> GET </span><span className="bg-[#ee2d2e] relative z-1 transform rotate-20">CAUGHT</span></h1>
 
             <div style={{width: "calc(13rem + 0.5vw)"}}>
-                <Button nav="/sign-up" text="HOP IN"/></div>
+                <Button nav={nav} text="HOP IN"/></div>
         </div>
     );
 }

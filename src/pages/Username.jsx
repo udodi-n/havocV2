@@ -17,7 +17,6 @@ function Username() {
     async function handleSubmit(e) {
         e.preventDefault()
         const useSplit = value.split('@')[1];
-        console.log(useSplit)
         const userCred = await signInAnonymously(auth);
         const user = userCred.user;
         

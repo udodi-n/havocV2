@@ -66,9 +66,9 @@ function Gif({display, setDisplay, url, action}) {
                 <img onClick={() => setDisplay(false)} src={cancel} className="w-5 h-auto" alt="" /> 
         </div>
         <div className="w-full flex flex-1 mt-10 flex-wrap gap-2 h-[80vh] overflow-y-auto">
-        {gif.map((giphy, i) => (
+        {gif.map((giphy) => (
             <div
-            key={i}
+            key={giphy}
             className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-square overflow-hidden rounded"
             >
             <img
