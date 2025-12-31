@@ -25,7 +25,7 @@ function Gif({display, setDisplay, url, action}) {
                 r.urls.map((g) => g.url)
             );
             setGif(urls);
-            setTimeout(() => setHidden(false), 1000)
+            setTimeout(() => setHidden(false), 300)
             setHidden(true)
     }
 
@@ -47,7 +47,7 @@ function Gif({display, setDisplay, url, action}) {
     if (!display) return null
 
     return(
-        <div className={`flex flex-col items-center absolute z-100 h-screen bg-white w-full p-3`}>
+        <div className={`flex flex-col items-center absolute z-100 h-screen bg-white w-full pt-3`}>
         <div className="h-10 w-full flex justify-center gap-6 items-center ">
             <input
                     type="search"
