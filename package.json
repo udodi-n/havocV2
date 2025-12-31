@@ -12,6 +12,7 @@
   "dependencies": {
     "@fingerprintjs/fingerprintjs-pro-react": "^2.7.1",
     "@tailwindcss/vite": "^4.1.18",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "firebase": "^12.7.0",
     "react": "^19.2.0",

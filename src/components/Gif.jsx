@@ -19,11 +19,10 @@ function Gif({display, setDisplay, url, action}) {
             );
             }
             const data = await Promise.all(requests)
-
+            
             const urls = data.flatMap((r) =>
                 r.urls.map((g) => g.url)
             );
-            console.log(data)
             setGif(urls);
 
     }
@@ -68,11 +67,11 @@ function Gif({display, setDisplay, url, action}) {
         
                     <img onClick={() => setDisplay(false)} src={redir} className="w-5 h-auto" alt="" />
         </div>
-        <div className="w-full flex flex-1 mt-5 flex-wrap h-[80vh] overflow-y-auto">
-        {gif.map((giphy) => (
+        <div className="w-full flex justify-center flex-1 mt-5 flex-wrap h-[80vh] overflow-y-auto">
+        {gif.map((giphy, i) => (
             <div
-            key={giphy}
-            className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-1/2 overflow-hidden"
+            key={i}
+            className="relative w-[calc(33.333%-0.5rem)] sm:w-[calc(25%-0.5rem)] md:w-[calc(20%-0.5rem)] lg:w-[calc(16.666%-0.5rem)] aspect-square"
             >
             <img
                 src={giphy}

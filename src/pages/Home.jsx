@@ -152,6 +152,11 @@ function useKeyboardOffset() {
             </div>
                     <textarea
                         placeholder="Uhh type..."
+                        onKeyDown={(e) => {
+                            // if(e.key === "@") {
+                            //     console.log('tag')
+                            // }
+                        }}
                         className=" bg-white flex flex-1 text-black/80 h-full focus:outline-none resize-none p-3"
                         onChange={(e) => checkLength(e, setValue, setPostLength, setDisable)}
                         value={value}
