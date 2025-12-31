@@ -8,6 +8,7 @@ function Gif({display, setDisplay, url, action}) {
     const [uid, setUid] = useState('')
     const [gif, setGif] = useState([]);
     const [gifurl, setGifurl] = useState(url)
+    const [hidden, setHidden] = useState(false)
 
     async function searchGif(query) {
         if (!uid) return
@@ -24,7 +25,8 @@ function Gif({display, setDisplay, url, action}) {
                 r.urls.map((g) => g.url)
             );
             setGif(urls);
-
+            setTimeout(() => setHidden(false), 1000)
+            setHidden(true)
     }
 
     function handleGifClick(target) {
@@ -67,7 +69,7 @@ function Gif({display, setDisplay, url, action}) {
         
                     <img onClick={() => setDisplay(false)} src={redir} className="w-5 h-auto" alt="" />
         </div>
-        <div className="w-full flex justify-center flex-1 mt-5 flex-wrap h-[80vh] overflow-y-auto">
+        <div className={`${hidden? 'hidden' : ''} w-full flex justify-center flex-1 mt-5 flex-wrap h-[80vh] overflow-y-auto`}>
         {gif.map((giphy, i) => (
             <div
             key={i}

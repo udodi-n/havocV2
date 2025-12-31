@@ -129,7 +129,7 @@ function useKeyboardOffset() {
                 width: "calc(99% - 1.5rem)",
                 }}>
 
-                    <div className="flex bg-white lg:w-3/5 md:w-3/5 rounded-full overflow-hidden "
+                    <div className="flex bg-white lg:w-2/5 md:w-3/5 rounded-full overflow-hidden "
                     style={{
                         
                     }}>
