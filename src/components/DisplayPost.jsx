@@ -46,7 +46,7 @@ function DisplayPost({post}) {
 
 
     return (
-        <div className="text-white gap-4 flex flex-col w-full px-6 h-[80vh] overflow-y-auto border-t-1 border-white py-4">
+        <div className="text-white gap-4 flex flex-col w-full h-[85vh] overflow-y-auto py-4 scrollbar">
             {posts.map((p) => {
             const t = new Date(p.createdAt);
             const time = t.toLocaleTimeString([], {
@@ -81,7 +81,7 @@ function DisplayPost({post}) {
                         src={p.gif}
                         alt="GIF"
                         className="max-w-full rounded-lg"
-                        style={{ maxHeight: "300px", objectFit: "cover" }}
+                        style={{ maxHeight: "150px", objectFit: "cover" }}
                     />
                     </div>
                 )}

@@ -99,14 +99,16 @@ function useKeyboardOffset() {
 
 
     return (
-        <div className="w-full min-h-screen flex flex-col justify-start text-white font-[PT_Mono] bg-[#0c0c0c]">
+        <div className=" w-full min-h-screen flex flex-col justify-start text-white font-[PT_Mono] bg-[#0c0c0c]">
             <OnAuth nextNav = '/' />
-        <div className=" px-6 flex justify-between items-center w-full bg-[]"
-        style={{height: "5rem"}}> 
+        <div className=" px-6 flex justify-between items-center w-full bg-[#141414ff]"
+        style={{height: "5rem",
+            boxShadow: "0px 1px 16px #3535352d"
+        }}> 
                 <Header />
             <img src={setting} alt="" className="w-4 h-auto invert"/>
         </div>
-        <div className="">
+        <div className="pl-4">
             <DisplayPost />
         </div>
         <Gif display={display} url={gifurl} setDisplay={setDisplay} action={setGif}/>
@@ -124,12 +126,11 @@ function useKeyboardOffset() {
                         <img onLoad={() => enableGif()} src={gifurl} className="opacity-70 w-full h-full object-cover" alt="" />
                     </div>
                 </div>
-            <div className="flex justify-center gap-2 h-12"
+            <div className=" w-full flex justify-center gap-2 h-12"
             style={{
-                width: "calc(99% - 1.5rem)",
                 }}>
 
-                    <div className="flex bg-white lg:w-2/5 md:w-3/5 rounded-full overflow-hidden "
+                    <div className="flex bg-white w-full rounded-full overflow-hidden "
                     style={{
                         
                     }}>

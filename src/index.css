@@ -12,3 +12,23 @@
     font-family: ReflowSans;
     src: url('./assets/fonts/ReflowSans.ttf') format('truetype');
 }
+
+/* .scrollbar {
+    scrollbar-color: transparent transparent;
+} */
+
+
+@media (min-width: 1281px) {
+    .scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    background: white;
+    border-radius: 34px;
+}
+}
